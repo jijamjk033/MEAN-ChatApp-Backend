@@ -24,6 +24,15 @@ class UserRepository{
         const savedUser = await user.save();
         return savedUser.toObject() as unknown as IUser;
     }
+
+    async searchUsers(query: string) {
+        return await User.find({
+            $or: [
+                { name: { $regex: query, $options: "i" } },
+                { email: { $regex: query, $options: "i" } }
+            ]
+        }).select("name email picture");
+    }
 }
 
 export const userRepository = new UserRepository();

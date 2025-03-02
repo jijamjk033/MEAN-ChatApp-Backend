@@ -19,6 +19,10 @@ class UserService {
         return user as IUser;
     }
 
+    async searchUsers(query: string) {
+        return await userRepository.searchUsers(query);
+    }
+
 }
 
 export const userService = new UserService();
